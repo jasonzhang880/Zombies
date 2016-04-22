@@ -1,13 +1,24 @@
 package com.lab.jason.zombies;
 
+import android.app.usage.UsageEvents;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity {
 
+    private GameUI gameUI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        gameUI=new GameUI(getBaseContext());
+        setContentView(gameUI);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //把touch事件传递给GameUI
+        gameUI.handleTouch(event);
+        return super.onTouchEvent(event);
     }
 }
