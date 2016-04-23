@@ -51,15 +51,17 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
     }
     //获取画布绘制界面
     public void drawUI() {
-
+        Log.d("rect","drawUI被调用");
         Canvas lockCanvas = holder.lockCanvas();
         Paint paint = new Paint();
-        paint.setColor(Color.GRAY);
+        paint.setColor(Color.WHITE);
 
         lockCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+        Log.d("rect","绘制小猫");
         man.drawSelf(lockCanvas);
 
         for (Face face : faces) {
+            Log.d("rect","绘制笑脸");
             face.drawSelf(lockCanvas);
             face.move();
             if (face.mPoint.x < 0 || face.mPoint.x > getWidth()
@@ -67,18 +69,28 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
                 faces.remove(face);
             }
         }
-
+        Log.d("rect","绘制按钮");
         button.drawSelf(lockCanvas);
         holder.unlockCanvasAndPost(lockCanvas);
     }
     public void handleTouch(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN://手指按下
+                Log.d("rect","监听到触摸");
                 int  rawX=(int) event.getRawX();
                 int  rawY=(int) event.getRawY();
                 Point point=new Point(rawX,rawY);
-                Face face = man.createFace(getContext(), point);
-                faces.add(face);
+                if (button.isPressed(point)) {
+                    button.setPressed(true);
+                }else {
+                    Face face = man.createFace(getContext(), point);
+                    faces.add(face);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                button.setPressed(false);
+                break;
+
 
         }
     }
@@ -91,9 +103,9 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
         Bitmap manBitMap=BitmapFactory.decodeResource(getResources(),R.drawable.cat);
         man=new Man(manBitMap,new Point(0,0));
 
-        Bitmap buttonBitMap=BitmapFactory.decodeResource(getResources(),R.drawable.downloads);
-        Bitmap buttonPress=BitmapFactory.decodeResource(getResources(),R.drawable.bottom_press);
-        button=new MyButton(buttonBitMap,new Point(0,getHeight()-600),buttonPress);
+        Bitmap defaultBitMap=BitmapFactory.decodeResource(getResources(),R.drawable.btn_default_green);
+        Bitmap buttonPress=BitmapFactory.decodeResource(getResources(),R.drawable.btn_pressed_yellow);
+        button=new MyButton(defaultBitMap,new Point(0,getHeight()-600),buttonPress);
 
         thread=new RenderThread();
         flag=true;
