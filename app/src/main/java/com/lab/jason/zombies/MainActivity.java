@@ -1,17 +1,18 @@
 package com.lab.jason.zombies;
 
+import android.app.Activity;
 import android.app.usage.UsageEvents;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private GameUI gameUI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gameUI=new GameUI(getBaseContext());
+        gameUI=new GameUI(getApplicationContext());
         setContentView(gameUI);
     }
 
