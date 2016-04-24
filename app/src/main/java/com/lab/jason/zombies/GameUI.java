@@ -55,8 +55,10 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
         Canvas lockCanvas = holder.lockCanvas();
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-
+       //清空画布
         lockCanvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+
+
         Log.d("rect","绘制小猫");
         man.drawSelf(lockCanvas);
 
@@ -80,13 +82,16 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
                 int  rawX=(int) event.getRawX();
                 int  rawY=(int) event.getRawY();
                 Point point=new Point(rawX,rawY);
+
                 if (button.isPressed(point)) {
                     button.setPressed(true);
+                    button.Click();
                 }else {
                     Face face = man.createFace(getContext(), point);
                     faces.add(face);
                 }
                 break;
+
             case MotionEvent.ACTION_UP:
                 button.setPressed(false);
                 break;
@@ -101,11 +106,17 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
         Bitmap manBitMap=BitmapFactory.decodeResource(getResources(),R.drawable.cat);
-        man=new Man(manBitMap,new Point(0,0));
+        man=new Man(manBitMap,new Point(400,0));
 
         Bitmap defaultBitMap=BitmapFactory.decodeResource(getResources(),R.drawable.btn_default_green);
         Bitmap buttonPress=BitmapFactory.decodeResource(getResources(),R.drawable.btn_pressed_yellow);
-        button=new MyButton(defaultBitMap,new Point(0,getHeight()-600),buttonPress);
+        button=new MyButton(defaultBitMap,new Point(400,getHeight()-600),buttonPress);
+        button.setListener(new MyButton.OnClickListener() {
+            @Override
+            public void onClick() {
+                man.move();
+            }
+        });
 
         thread=new RenderThread();
         flag=true;

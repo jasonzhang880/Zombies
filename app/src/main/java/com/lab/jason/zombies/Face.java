@@ -19,7 +19,7 @@ public class Face extends Spirit {
         int X=targetPoint.x-this.mPoint.x;
         int Y=targetPoint.y-this.mPoint.y;
         int D=(int)Math.sqrt(X*X+Y*Y);
-        //计算每次移动的距离
+        //创建笑脸对象时就计算每次移动的距离
         tX=speed*X/D;
         tY=speed*Y/D;
     }
