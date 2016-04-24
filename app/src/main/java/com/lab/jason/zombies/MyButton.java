@@ -15,6 +15,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MyButton extends Spirit {
     private Boolean isClick=false;
     private Bitmap pressedBitmap;
+    private OnClickListener listener;
+
+    public interface OnClickListener {
+        void onClick();
+    }
+
+    public void setListener(OnClickListener listener) {
+        this.listener=listener;
+    }
+
+    public void Click() {
+        listener.onClick();
+    }
 
     public MyButton(Bitmap defaultBitMap, Point mPoint,Bitmap pressedBitmap) {
         super(defaultBitMap, mPoint);

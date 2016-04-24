@@ -19,4 +19,8 @@ public class Man extends Spirit{
         Face face=new Face(faceBitMap,new Point(this.mPoint.x+160,this.mPoint.y+160),targetPoint);
         return face;
     }
+
+    public void move() {
+        this.mPoint.y+=6;
+    }
 }
