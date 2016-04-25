@@ -1,8 +1,6 @@
 package com.lab.jason.zombies;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 

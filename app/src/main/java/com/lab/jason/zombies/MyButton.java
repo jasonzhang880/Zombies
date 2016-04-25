@@ -7,7 +7,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Administrator on 2016/4/22 0022.
