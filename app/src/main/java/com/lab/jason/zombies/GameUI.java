@@ -30,7 +30,7 @@ public class GameUI extends SurfaceView implements SurfaceHolder.Callback {
     public GameUI(Context context) {
         super(context);
         holder=getHolder();
-        holder.addCallback(this);
+        holder.addCallback(this);//令SurfaceHolder.Callback接口的三个方法生效
     }
     //保证线程有效在SurfaceHolder.Callback.surfaceCreate()和SurfaceHolder.Callback.surfaceDestroy()之间调用
     private class RenderThread extends Thread {
