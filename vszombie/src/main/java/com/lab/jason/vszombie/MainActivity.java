@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.lab.jason.vszombie.Layer.ActionLayer;
+import com.lab.jason.vszombie.Layer.DemoLayer;
 import com.lab.jason.vszombie.Layer.FirstLayer;
 
 import org.cocos2d.layers.CCScene;
@@ -31,8 +33,11 @@ public class MainActivity extends Activity {
         CCScene ccScene=CCScene.node();//创建一个场景，作为需要展示内容的根节点
 
         Log.d("rect","创建图层");
-        FirstLayer layer=new FirstLayer();
+//        FirstLayer layer=new FirstLayer();
 
+//        ActionLayer layer=new ActionLayer();
+
+        DemoLayer layer=new DemoLayer();
         ccScene.addChild(layer);  //添加图层
         ccDirector.runWithScene(ccScene); //设置场景
 

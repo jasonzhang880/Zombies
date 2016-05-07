@@ -49,22 +49,20 @@ public class ActionLayer extends CCLayer {
 		// blink();
 		// fadeTo();
 
-		// complex();
-		walk();
+		 complex();
+//		walk();
 	}
 
 	private void walk() {
 		ArrayList<CCSpriteFrame> frames = new ArrayList<CCSpriteFrame>();
-		// ��7֡ȫ����ӵ�������
-		String format="z_1_%02d.png";//%2d ��ʾ��λ����      ������λǰ�油0  
+		String format="z_1_%02d.png";
 		for (int i = 1; i <= 7; i++) {
 			CCSpriteFrame frame = CCSprite.sprite(String.format(format, i)).displayedFrame();
 			frames.add(frame);
-		}
-		// ����1 name ����2 ÿһ֡�ļ��ʱ�� ����3 ���ŵ�����֡
-		CCAnimation anim = CCAnimation.animation("walk", .2f, frames);
+		}  //创建一个帧数组
+
+		CCAnimation anim = CCAnimation.animation("walk", .2f, frames); //命名、播放时间间隔、List数组
 		CCAnimate animate = CCAnimate.action(anim);
-		//  ����֡ Ĭ������� ��������ֹͣ��ѭ��  
 		CCRepeatForever forever=CCRepeatForever.action(animate);
 		CCSprite sprite = getSprite();
 		sprite.setFlipX(true);
@@ -74,15 +72,11 @@ public class ActionLayer extends CCLayer {
 	}
 
 	private void complex() {
-		// ��շ� ��Ծ����,��������ת
 		CCJumpBy jumpBy = CCJumpBy.action(4, ccp(300, 200), 100, 2);
-		CCRotateBy rotateBy = CCRotateBy.action(2, 360);
-		// ����ִ�еĶ���
-		CCSpawn spawn = CCSpawn.actions(jumpBy, rotateBy);
-		CCIntervalAction reverse = spawn.reverse();
-		// ����
+		CCRotateBy rotateBy=CCRotateBy.action(2,360);//两秒钟旋转一圈
+		CCSpawn spawn = CCSpawn.actions(jumpBy, rotateBy); //并发动作
+		CCIntervalAction reverse = spawn.reverse(); //  逆转后的动作是CCIntervalAction类型
 		CCSequence sequence = CCSequence.actions(spawn, reverse);
-		// ����ֹͣ��ѭ��
 		CCRepeatForever forever = CCRepeatForever.action(sequence);
 		CCSprite sprite = getSprite();
 		sprite.setAnchorPoint(0.5f, 0.5f);
@@ -96,20 +90,15 @@ public class ActionLayer extends CCLayer {
 	}
 
 	private void blink() {
-		// 1 ʱ�� 2 ����
 		CCBlink blink = CCBlink.action(2, 3);
 		getSprite().runAction(blink);
 	}
 
 	private void tint() {
-		// ר����ʾ���� ���������
-		// 1 ���ֵ����� 2 �������ʽ ��������,����... 3 ����Ĵ�С
-		CCLabel label = CCLabel.labelWithString("��Щ��,�����ں���Ŀ������", "hkbd.ttf",
-				20);
+		CCLabel label = CCLabel.labelWithString("那些年错过的大雨","hkbd.ttf",20);
 		label.setColor(ccc3(0, 100, 255));
 		label.setPosition(200, 200);
 		this.addChild(label);
-		// ����1 ʱ�� RGB
 		ccColor3B color3b = CCNode.ccc3(100, 100, 0);
 
 		CCTintBy ccTintBy = CCTintBy.action(1, color3b);
@@ -121,8 +110,6 @@ public class ActionLayer extends CCLayer {
 	}
 
 	private void rotateBy() {
-		// ��͵��
-		// ����1 ����ʱ�� ����2 ��ת�ĽǶ� 0-360
 		CCRotateBy rotateBy = CCRotateBy.action(3, 300);
 		CCSprite heart = getHeart();
 		heart.setPosition(200, 100);
@@ -130,15 +117,12 @@ public class ActionLayer extends CCLayer {
 	}
 
 	private void rotateTo() {
-		// ͵��
-		// ����1 ����ʱ�� ����2 ��ת�ĽǶ� 0-360
 		CCRotateTo rotateTo = CCRotateTo.action(3, 300);
 		getHeart().runAction(rotateTo);
 
 	}
 
 	private void scale() {
-		// 1 ʱ�� 2���ŵı��� ����ê���������
 		CCScaleBy ccScaleBy = CCScaleBy.action(0.5f, 1.5f);
 		CCScaleBy ccScaleBy2 = ccScaleBy.reverse();
 		CCSequence sequence = CCSequence.actions(ccScaleBy, ccScaleBy2);
@@ -148,7 +132,7 @@ public class ActionLayer extends CCLayer {
 
 	private CCSprite getHeart() {
 		CCSprite sprite = CCSprite.sprite("heart.png");
-		sprite.setAnchorPoint(0.5f, 0.5f);// �޸�ê��
+		sprite.setAnchorPoint(0.5f, 0.5f);
 		sprite.setPosition(100, 100);
 		this.addChild(sprite);
 
@@ -158,35 +142,27 @@ public class ActionLayer extends CCLayer {
 
 	private void ease() {
 		CCMoveTo moveTo = CCMoveTo.action(5, ccp(200, 0));
-		// 1 ���� 2 ���ٶ�
 		CCEaseOut easeOut = CCEaseOut.action(moveTo, 5);
 
 		getSprite().runAction(easeOut);
 	}
 
 	private void bezier() {
-		// ���ߵĻ�������
 		CCBezierConfig c = new CCBezierConfig();
 		c.controlPoint_1 = ccp(0, 0);
 		c.controlPoint_2 = ccp(100, 100);
-		c.endPosition = ccp(200, 0);
-		// 1 ʱ�� 2
 		CCBezierBy by = CCBezierBy.action(2, c);
 		getSprite().runAction(by);
 	}
 
 	private void jump() {
-		// 1 ʱ�� 2 ��Ծ��Ŀ�ĵ� 3 ��Ծ����ĸ߶� 4 ��Ծ�Ĵ���
 		CCJumpBy jumpBy = CCJumpBy.action(2, ccp(200, 200), 100, 2);
-		CCJumpBy reverse = jumpBy.reverse();// ��ȡ���෴�Ķ���
-		// ���ж��� ���԰��������� ������
+		CCJumpBy reverse = jumpBy.reverse();
 		CCSequence sequence = CCSequence.actions(jumpBy, reverse);
-		CCRepeatForever forever = CCRepeatForever.action(sequence);// ����ֹͣ��ѭ��
-		getSprite().runAction(forever);
+		CCRepeatForever forever = CCRepeatForever.action(sequence);
 	}
 
 	private void moveBy() {
-		// ����1 �ƶ��ĳ���ʱ�� ����2 ����ı仯 (x��������200 ,y���겻���޸�)
 		CCMoveBy moveBy = CCMoveBy.action(2, ccp(200, 0));
 		CCSprite sprite = getSprite();
 		sprite.setPosition(0, 100);
@@ -194,7 +170,6 @@ public class ActionLayer extends CCLayer {
 	}
 
 	private void moveTo() {
-		// 1 �ƶ���ʱ�� ��λ�� 2 �ƶ�����Ŀ�ĵ�
 		CCMoveTo moveTo = CCMoveTo.action(2, ccp(200, 0));
 		getSprite().runAction(moveTo);
 	}
