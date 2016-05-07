@@ -15,6 +15,9 @@ import org.cocos2d.nodes.CCAnimation;
 import org.cocos2d.nodes.CCNode;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.nodes.CCSpriteFrame;
+import org.cocos2d.nodes.CCTextureCache;
+import org.cocos2d.particlesystem.CCParticleSnow;
+import org.cocos2d.particlesystem.CCParticleSystem;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.util.CGPointUtil;
 
@@ -39,7 +42,18 @@ public class DemoLayer extends CCLayer {
         loadRoad();
 
         loadZombie();
+
+        loadSnow();
     }
+
+    private void loadSnow() {
+        //加载粒子系统工具类
+        CCParticleSystem system= CCParticleSnow.node();
+        //加载雪花样式
+        system.setTexture(CCTextureCache.sharedTextureCache().addImage("snow.png"));
+        this.addChild(system,1);
+    }
+
 
     private void loadZombie() {
         sprite=CCSprite.sprite("z_1_01.png");
